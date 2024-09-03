@@ -16,9 +16,9 @@ class TaskController extends Controller
     public function index()
     {
         return response()->json([
-            ['id' => 1, 'name' => 'Task 1', 'description' => 'Description 1'],
-            ['id' => 2, 'name' => 'Task 2', 'description' => 'Description 2'],
-            ['id' => 3, 'name' => 'Task 3', 'description' => 'Description 3'],
+            ['id' => 1, 'title' => 'Task 1', 'description' => 'Description 1'],
+            ['id' => 2, 'title' => 'Task 2', 'description' => 'Description 2'],
+            ['id' => 3, 'title' => 'Task 3', 'description' => 'Description 3'],
         ]);
     }
 
@@ -35,7 +35,11 @@ class TaskController extends Controller
      */
     public function store(StoretaskRequest $request)
     {
-        //
+        $validated = $request->validated(
+            $request->only(['title', 'description'])
+        );
+
+        return response()->json($validated);
     }
 
     /**
@@ -43,7 +47,13 @@ class TaskController extends Controller
      */
     public function show(task $task)
     {
-        //
+    info('Task retrieved', $task);
+        //return the task from index where id = $task->id
+        return response()->json([
+            'id' => $task->id,
+            'title' => $task->title,
+            'description' => $task->description,
+        ]);
     }
 
     /**
@@ -59,7 +69,11 @@ class TaskController extends Controller
      */
     public function update(UpdatetaskRequest $request, task $task)
     {
-        //
+        $validated = $request->validated(
+            $request->only(['title', 'description'])
+        );
+
+        return response()->json($validated);
     }
 
     /**
@@ -67,6 +81,11 @@ class TaskController extends Controller
      */
     public function destroy(task $task)
     {
-        //
+        error_log('Task deleted', $task);
+        return response()->json([
+            'id' => $task->id,
+            'title' => $task->title,
+            'description' => $task->description,
+        ]);
     }
 }
