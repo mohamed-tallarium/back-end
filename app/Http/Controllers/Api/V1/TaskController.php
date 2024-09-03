@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Controllers\Controller;
+use App\Models\Task;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoretaskRequest;
 use App\Http\Requests\UpdatetaskRequest;
-use App\Models\task;
 
 class TaskController extends Controller
 {
@@ -13,7 +15,11 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            ['id' => 1, 'name' => 'Task 1', 'description' => 'Description 1'],
+            ['id' => 2, 'name' => 'Task 2', 'description' => 'Description 2'],
+            ['id' => 3, 'name' => 'Task 3', 'description' => 'Description 3'],
+        ]);
     }
 
     /**
